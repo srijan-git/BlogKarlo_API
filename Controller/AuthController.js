@@ -1,6 +1,7 @@
 
 const AuthModel = require("../Model/AuthModel")
 const { validationResult } = require('express-validator')
+const jwt = require('jsonwebtoken')
 /*------------------------RegistrationSection----------------------------*/
 
 
@@ -93,9 +94,12 @@ exports.postLogin = (req, res) => {
         AuthModel.findOne({ email: email }).then(loginValue => {
             if (loginValue) {
                 console.log("Logged in")
+                const jwt_token = jwt.sign({ email: loginValue.email }, "ABCD", { expiresIn: '1h' })
                 return res.status(200).json({
                     success: true,
-                    message: "Successfully Login"
+                    message: "Successfully Login",
+                    token: jwt_token,
+                    result: loginValue
                 })
             } else {
                 console.log("Invalid Email and password")
