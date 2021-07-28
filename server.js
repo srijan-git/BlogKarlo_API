@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const multer = require('multer')
+const cros = require('cors')
 const mongoose = require('mongoose');
 require('dotenv').config()
 const homeRouter = require('./Router/router')
@@ -41,9 +42,15 @@ const fileFilter = (req, file, cb) => {
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter, limits: { fieldSize: 1024 * 1024 * 5 } }).single('ProductImg'))
 
 
+
+
+const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.6ztzg.mongodb.net/${process.env.DB_NAME}`;
+app.use(express.urlencoded({ extended: true }))
+
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Credentials", "true");s
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
 
@@ -51,12 +58,6 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-
-
-const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.6ztzg.mongodb.net/${process.env.DB_NAME}`;
-app.use(express.urlencoded({ extended: true }))
-
-const cros = require('cors')
 
 
 
