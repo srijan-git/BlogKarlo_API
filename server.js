@@ -42,9 +42,9 @@ const fileFilter = (req, file, cb) => {
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter, limits: { fieldSize: 1024 * 1024 * 5 } }).single('ProductImg'))
 
 
+// mongodb + srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.6ztzg.mongodb.net/${process.env.DB_NAME}
 
-
-const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.6ztzg.mongodb.net/${process.env.DB_NAME}`;
+const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.emmyy.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 app.use(express.urlencoded({ extended: true }))
 
 
