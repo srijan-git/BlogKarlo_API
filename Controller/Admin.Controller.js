@@ -1,41 +1,49 @@
 const ProductModel = require("../Model/AdminProductModel")
+const cloudinary = require('cloudinary').v2
+cloudinary.config({
+    cloud_name: 'dd1rtlezl',
+    api_key: '472355321544534',
+    api_secret: 'c7b7Lajl9Pt1K00JkMzmon9GxJE'
+});
+
 exports.getProductName = (req, res) => {
     res.render('Admin/addProduct')
 }
 
 
+
 exports.postProduct = (req, res) => {
+    console.log(req.body);
     const title = req.body.title
     const description = req.body.description
-    const ProductImg = req.file
+    const ProductImg = req.files.ProductImg
     const ProductPrice = req.body.ProductPrice
-    const img_url = ProductImg.path
-    console.log(ProductImg)
+    cloudinary.uploader.upload(ProductImg.tempFilePath, (err, result) => {
+        console.log(result);
+        const ProductDetails = new ProductModel(
+            {
+                title: title,
+                description: description,
+                ProductImg: result.url,
+                ProductPrice: ProductPrice
+            })
 
-    const ProductDetails = new ProductModel(
-        {
-            title: title,
-            description: description,
-            ProductImg: img_url,
-            ProductPrice: ProductPrice
-        })
-
-    ProductDetails.save().then(result => {
-        console.log("Product Addess", result)
-        return res.status(200).json({
-            status: true,
-            message: "Product Fetched successfully",
-            productdata: result
-        })
-    }).catch(err => {
-        console.log(err)
-        return res.status(401).json({   
-            status: false,
-            message: "Not able to post Product "
+        ProductDetails.save().then(result => {
+            console.log("Product Addess", result)
+            return res.status(200).json({
+                status: true,
+                message: "Product Fetched successfully",
+                productdata: result
+            })
+        }).catch(err => {
+            console.log(err)
+            return res.status(401).json({
+                status: false,
+                message: "Not able to post Product "
+            })
         })
     })
 }
-
 
 exports.getproductData = (req, res) => {
     ProductModel.find().then((product) => {
