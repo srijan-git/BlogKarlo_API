@@ -6,10 +6,7 @@ require('dotenv').config()
 const homeRouter = require('./Router/router')
 const AdminRouter = require('./Router/Admin.router')
 const fileupload = require('express-fileupload')
-app.set('view engine', 'ejs');
-app.set('views', 'View');
-app.use(homeRouter)
-app.use(AdminRouter)
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.emmyy.mongodb.net/${process.env.DB_NAME}`;
@@ -29,6 +26,12 @@ app.use(fileupload({
 app.use(cors());
 
 
+
+
+app.set('view engine', 'ejs');
+app.set('views', 'View');
+app.use(homeRouter)
+app.use(AdminRouter)
 mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true }).then((result) => {
     //Promise sucess status
     if (result) {
