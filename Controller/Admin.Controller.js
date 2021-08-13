@@ -62,6 +62,24 @@ exports.getproductData = (req, res) => {
     })
 }
 
+exports.getproductSingleData = (req, res) => {
+    const pId = req.params.pId
+    ProductModel.findById(pId).then((product) => {
+        console.log(product)
+        return res.status(200).json({
+            status: true,
+            message: "Product Fetched successfully",
+            productdata: product
+        })
+    }).catch((err) => {
+        console.log(err)
+        return res.status(401).json({
+            status: false,
+            message: "Not able to fetech Product "
+        })
+    })
+}
+
 
 
 
@@ -101,12 +119,11 @@ exports.postproductEdit = (req, res) => {
             product.ProductImg = ProductImg
             product.ProductPrice = ProductPrice
 
-
             return product.save().then(data => {
                 console.log("Product Updated Sucessfully", data)
                 return res.status(200).json({
                     status: true,
-                    message: "Post Product Edited Unsuccessfully"
+                    message: "Product Edited Unsuccessfully"
                 })
             }).catch(err => {
                 console.log("Data Not saved", err)
@@ -141,7 +158,7 @@ exports.productDelete = (req, res) => {
         console.log(err)
         return res.status(401).json({
             status: false,
-            message: "Product Deleted Unsuccessfully"
+            message: "Unsuccessful Attempt(Delete)"
         })
     })
 }
