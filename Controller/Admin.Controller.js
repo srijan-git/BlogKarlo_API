@@ -141,7 +141,7 @@ exports.getproductData = (req, res) => {
 //             message: "Not able to fetech Product "
 //         })
 //     })
-}
+// }
 //-----------------Get the single Product---------------//
 
 
