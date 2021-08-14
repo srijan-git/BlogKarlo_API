@@ -45,6 +45,56 @@ exports.postProduct = (req, res) => {
     })
 }
 
+
+exports.postproductEdit = (req, res) => {
+    const title = req.body.title
+    const description = req.body.description
+    const ProductImg = req.files.ProductImg
+    const ProductPrice = req.body.ProductPrice
+    const pId = req.body.pId
+
+    cloudinary.uploader.upload(ProductImg.tempFilePath, (err, result) => {
+        console.log(result);
+
+        ProductModel.findById(pId).then(product => {
+            if (product) {
+                product.title = title
+                product.description = description
+                product.ProductImg = ProductImg
+                product.ProductPrice = ProductPrice
+
+                return product.save().then(data => {
+                    console.log("Product Updated Sucessfully", data)
+                    return res.status(200).json({
+                        status: true,
+                        message: "Product Edited successfully"
+                    })
+                }).catch(err => {
+                    console.log("Data Not saved", err)
+                    return res.status(401).json({
+                        status: false,
+                        message: " Post Product Edit Unsuccessfully"
+                    })
+                })
+            }
+            else {
+                res.redirect('/getProductdata')
+            }
+        }).catch(err => {
+            console.log(err)
+            return res.status(500).json({
+                status: false,
+                message: "Internal Server error"
+            })
+        })
+
+
+    })
+
+}
+
+
+
 exports.getproductData = (req, res) => {
     ProductModel.find().then((product) => {
         console.log(product)
@@ -85,46 +135,6 @@ exports.getEditedProduct = (req, res) => {
 }
 
 
-exports.postproductEdit = (req, res) => {
-    const title = req.body.title
-    const description = req.body.description
-    const ProductImg = req.body.ProductImg
-    const ProductPrice = req.body.ProductPrice
-    const pId = req.body.pId
-
-
-    ProductModel.findById(pId).then(product => {
-        if (product) {
-            product.title = title
-            product.description = description
-            product.ProductImg = ProductImg
-            product.ProductPrice = ProductPrice
-
-            return product.save().then(data => {
-                console.log("Product Updated Sucessfully", data)
-                return res.status(200).json({
-                    status: true,
-                    message: "Product Edited successfully"
-                })
-            }).catch(err => {
-                console.log("Data Not saved", err)
-                return res.status(401).json({
-                    status: false,
-                    message: " Post Product Edit Unsuccessfully"
-                })
-            })
-        }
-        else {
-            res.redirect('/getProductdata')
-        }
-    }).catch(err => {
-        console.log(err)
-        return res.status(500).json({
-            status: false,
-            message: "Internal Server error"
-        })
-    })
-}
 
 
 exports.productDelete = (req, res) => {
