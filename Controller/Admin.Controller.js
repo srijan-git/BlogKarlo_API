@@ -60,7 +60,7 @@ exports.postproductEdit = (req, res) => {
             if (product) {
                 product.title = title
                 product.description = description
-                product.ProductImg = ProductImg
+                product.ProductImg = result.url
                 product.ProductPrice = ProductPrice
 
                 return product.save().then(data => {
