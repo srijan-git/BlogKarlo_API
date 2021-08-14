@@ -124,6 +124,27 @@ exports.getproductData = (req, res) => {
 //--------------------Get The Added Products---------------//
 
 
+//-----------------Get the single Product---------------//
+exports.getproductData = (req, res) => {
+    const pId = req.params.pId
+    ProductModel.findById(pId).then((product) => {
+        console.log(product)
+        return res.status(200).json({
+            status: true,
+            message: "Product Fetched successfully",
+            productdata: product
+        })
+    }).catch((err) => {
+        console.log(err)
+        return res.status(401).json({
+            status: false,
+            message: "Not able to fetech Product "
+        })
+    })
+}
+
+
+
 //--------------------Get The Edited Products---------------//
 exports.getEditedProduct = (req, res) => {
     //To collect the product id form URL
