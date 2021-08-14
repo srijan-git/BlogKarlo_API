@@ -50,6 +50,46 @@ exports.postProduct = (req, res) => {
 }
 //--------------------AddProduct---------------//
 
+//--------------------Get The Added Products---------------//
+exports.getproductData = (req, res) => {
+    ProductModel.find().then((product) => {
+        console.log(product)
+        return res.status(200).json({
+            status: true,
+            message: "Product Fetched successfully",
+            productdata: product
+        })
+    }).catch((err) => {
+        console.log(err)
+        return res.status(401).json({
+            status: false,
+            message: "Not able to fetech Product "
+        })
+    })
+}
+//--------------------Get The Added Products---------------//
+
+//--------------------Get The Edited Products---------------//
+exports.getEditedProduct = (req, res) => {
+    //To collect the product id form URL
+    const pId = req.params.pId
+
+    ProductModel.findById(pId).then(product => {
+        console.log(product)
+        return res.status(200).json({
+            status: true,
+            message: "ProductData Fetched successfully",
+            productdata: product
+        })
+    }).catch((err) => {
+        console.log(err)
+        return res.status(401).json({
+            status: false,
+            message: "Unsuccessful Attempt(getEditedProduct)"
+        })
+    })
+}
+//--------------------Get The Edited Products---------------//
 
 //--------------------Product Edit---------------//
 
@@ -101,50 +141,6 @@ exports.postproductEdit = (req, res) => {
 
 }
 //--------------------Product Edit---------------//
-
-
-
-//--------------------Get The Added Products---------------//
-exports.getproductData = (req, res) => {
-    ProductModel.find().then((product) => {
-        console.log(product)
-        return res.status(200).json({
-            status: true,
-            message: "Product Fetched successfully",
-            productdata: product
-        })
-    }).catch((err) => {
-        console.log(err)
-        return res.status(401).json({
-            status: false,
-            message: "Not able to fetech Product "
-        })
-    })
-}
-//--------------------Get The Added Products---------------//
-
-
-//--------------------Get The Edited Products---------------//
-exports.getEditedProduct = (req, res) => {
-    //To collect the product id form URL
-    const pId = req.params.pId
-
-    ProductModel.findById(pId).then(product => {
-        console.log(product)
-        return res.status(200).json({
-            status: true,
-            message: "ProductData Edited successfully",
-            data: product
-        })
-    }).catch((err) => {
-        console.log(err)
-        return res.status(401).json({
-            status: false,
-            message: "Product Edit Unsuccessfully"
-        })
-    })
-}
-//--------------------Get The Edited Products---------------//
 
 
 
