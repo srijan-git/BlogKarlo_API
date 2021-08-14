@@ -7,6 +7,6 @@ router.get('/getProductName', AdminController.getProductName)
 router.post('/postProduct', AdminController.postProduct)
 router.get('/getProductdata', AdminController.getproductData)
 router.get('/getEditedProduct/:pId', AdminController.getEditedProduct)
-router.post('/PostproductEdit', AdminController.postproductEdit)
+router.post('/postproductEdit', AdminController.postproductEdit)
 router.get('/productDelete/:pId', AdminController.productDelete)
 module.exports = router
