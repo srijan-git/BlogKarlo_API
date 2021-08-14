@@ -132,7 +132,7 @@ exports.postproductEdit = (req, res) => {
             console.log(err)
             return res.status(500).json({
                 status: false,
-                message: "Internal Server error"
+                message: "Internal Server error...Not all the fields are filled up..kindly check!"
             })
         })
 
