@@ -134,7 +134,7 @@ exports.getEditedProduct = (req, res) => {
         return res.status(200).json({
             status: true,
             message: "ProductData Edited successfully",
-            productdata: product
+            data: product
         })
     }).catch((err) => {
         console.log(err)
