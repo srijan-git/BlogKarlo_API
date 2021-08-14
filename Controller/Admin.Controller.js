@@ -74,7 +74,7 @@ exports.getEditedProduct = (req, res) => {
     //To collect the product id form URL
     const pId = req.params.pId
 
-    ProductModel.findById(pId).then(product => {
+    ProductModel.findById(pId).then((product) => {
         console.log(product)
         return res.status(200).json({
             status: true,
