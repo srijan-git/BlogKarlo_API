@@ -125,7 +125,7 @@ exports.getproductData = (req, res) => {
 
 
 //-----------------Get the single Product---------------//
-exports.getproductData = (req, res) => {
+exports.getSigleproductData = (req, res) => {
     const pId = req.params.pId
     ProductModel.findById(pId).then((product) => {
         console.log(product)
