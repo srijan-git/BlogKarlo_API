@@ -73,7 +73,7 @@ exports.getEditedProduct = (req, res) => {
         console.log(product)
         return res.status(200).json({
             status: true,
-            message: "Product Edited Data fetched successfully",
+            message: "ProductData Edited successfully",
         })
     }).catch((err) => {
         console.log(err)
@@ -104,7 +104,7 @@ exports.postproductEdit = (req, res) => {
                 console.log("Product Updated Sucessfully", data)
                 return res.status(200).json({
                     status: true,
-                    message: "Product Edited Unsuccessfully"
+                    message: "Product Edited successfully"
                 })
             }).catch(err => {
                 console.log("Data Not saved", err)
