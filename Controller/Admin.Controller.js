@@ -47,11 +47,12 @@ exports.postProduct = (req, res) => {
 
 
 exports.postproductEdit = (req, res) => {
+    const pId = req.body.pId
     const title = req.body.title
     const description = req.body.description
     const ProductImg = req.files.ProductImg
     const ProductPrice = req.body.ProductPrice
-    const pId = req.body.pId
+
 
     cloudinary.uploader.upload(ProductImg.tempFilePath, (err, result) => {
         console.log(result);
