@@ -1,8 +1,8 @@
 
 const AuthModel = require("../Model/AuthModel")
-const { validationResult } = require('express-validator')
-const jwt = require('jsonwebtoken')
 const adminCredentials = require("../Model/adminCredentials")
+const jwt = require('jsonwebtoken')
+
 /*------------------------RegistrationSection----------------------------*/
 
 
