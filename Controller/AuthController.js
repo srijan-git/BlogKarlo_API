@@ -1,8 +1,7 @@
 
 const AuthModel = require("../Model/AuthModel")
-const adminCredentials = require("../Model/adminCredentials")
+const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
-
 /*------------------------RegistrationSection----------------------------*/
 
 
@@ -120,47 +119,4 @@ exports.postLogin = (req, res) => {
     }
 }
 
-// --------------------Adminlogin-------------------------->
-exports.adminLogin = (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
-    console.log(email, password)
-    if (!email) {
-        return res.status(401).json({
-            success: false,
-            message: "Email is require"
-        })
-    } else if (!password) {
-        return res.status(401).json({
-            success: false,
-            message: "Password is require"
-        })
-    } else {
-        adminCredentials.findOne({ Email: email }).then((loginValue) => {
-            if (loginValue) {
-                console.log("Logged in")
-                const jwt_token = jwt.sign({ email: loginValue.email }, "ABCD", { expiresIn: '1h' })
-                return res.status(200).json({
-                    success: true,
-                    message: "Successfully Login",
-                    token: jwt_token,
-                    result: loginValue
-                })
-            } else {
-                console.log("Invalid Email and password")
-                return res.status(401).json({
-                    success: false,
-                    message: "Error...."
-                })
-                // res.redirect('/RegLogin')
-            }
-        }).catch(err => {
-            console.log(err)
-            return res.status(500).json({
-                success: false,
-                message: "Internal Server Error"
-            })
-        })
-    }
-}
 
