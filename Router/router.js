@@ -31,6 +31,7 @@ const { check, body } = require('express-validator')
 
 router.post('/postForm', authController.postRegister)
 router.post('/postLogin', authController.postLogin)
+router.post('/adminLogin',authController.adminLogin)
 
 // router.post('/register', [
 //     body('firstname', 'Valid first name here').isLength({ min: 3 }),
