@@ -3,13 +3,17 @@ const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
 require('dotenv').config()
-const homeRouter = require('./Router/router')
-const AdminRouter = require('./Router/Admin.router')
+const AuthRouter = require('./Router/router')
+const PostRouter = require('./Router/Post.router')
+const CommentsRouter = require('./Router/Comments.router')
 const fileupload = require('express-fileupload')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.emmyy.mongodb.net/${process.env.DB_NAME}`;
+
+
+const dbURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.baeyr.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+
 app.use(express.urlencoded({ extended: true }))
 
 
@@ -30,8 +34,9 @@ app.use(cors());
 
 app.set('view engine', 'ejs');
 app.set('views', 'View');
-app.use(homeRouter)
-app.use(AdminRouter)
+app.use(AuthRouter)
+app.use(PostRouter)
+app.use(CommentsRouter)
 mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true }).then((result) => {
     //Promise sucess status
     if (result) {
