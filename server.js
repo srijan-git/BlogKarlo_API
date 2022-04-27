@@ -6,7 +6,7 @@ require('dotenv').config()
 const AuthRouter = require('./Router/router')
 const PostRouter = require('./Router/Post.router')
 const CommentsRouter = require('./Router/Comments.router')
-const fileupload = require('express-fileupload')
+// const fileupload = require('express-fileupload')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,9 +24,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     next();
 });
-app.use(fileupload({
-    useTempFiles: true
-}))
+// app.use(fileupload({
+//     useTempFiles: true
+// }))
 app.use(cors());
 
 
