@@ -5,8 +5,8 @@ const CommentModel = require("../Model/CommentModel")
 exports.commentCreation = (req, res) => {
     const postID = req.params.postId;
     const userID = req.params.userID;
-    const comments = req.body.comments
-    const CreatedPost = new CommentModel({ postID: postID, userID: userID, Comments: comments })
+    const Comments = req.body.comments
+    const CreatedPost = new CommentModel({ postID: postID, userID: userID, Comments: Comments })
 
     CreatedPost.save().then(result => {
         return res.status(200).json({
