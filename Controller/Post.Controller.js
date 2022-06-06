@@ -78,3 +78,39 @@ exports.DeletePostContent = (req, res) => {
     })
 }
 // ------------------Deleting The data----------------//
+
+// ------------------Edit The data----------------//
+exports.postContentEdit = (req, res) => {
+    const PostId = req.body.PID;
+    const title = req.body.Title
+    const description = req.body.Description
+    PostModel.findById(PostId).then(postContent => {
+        console.log(postContent)
+        if (postContent) {
+            postContent.Title = title
+            postContent.Description = description
+            return postContent.save().then(data => {
+                return res.status(200).json({
+                    status: true,
+                    message: "Content Edited successfully",
+                    result: data
+                })
+            }).catch(updateError => {
+                return res.status(401).json({
+                    status: false,
+                    message: "Content Edit Unsuccessfull",
+                    result: updateError
+                })
+            })
+        }
+        else {
+            console.log("oops");
+        }
+    }).catch(err => {
+        return res.status(500).json({
+            status: false,
+            message: "Internal Server error...Not all the fields are filled up..kindly check!",
+            result: err
+        })
+    })
+}
